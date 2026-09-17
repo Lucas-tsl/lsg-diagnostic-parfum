@@ -3,7 +3,7 @@
  * Plugin Name:       LSG Diagnostic Parfum
  * Plugin URI:        https://github.com/Lucas-tsl/lsg-diagnostic-parfum
  * Description:       Sélecteur de diagnostic parfum (famille olfactive + note) avec filtrage de produits WooCommerce, bloc Gutenberg pour page de catégorie, page dédiée responsive en 2 colonnes filtrée sans rechargement, couleurs personnalisables, et compatibilité multilingue WPML.
- * Version:           1.2.0
+ * Version:           1.2.1
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * WC requires at least: 6.0
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'LSG_DIAG_VERSION' ) ) {
-    define( 'LSG_DIAG_VERSION', '1.2.0' );
+    define( 'LSG_DIAG_VERSION', '1.2.1' );
 }
 
 /**
@@ -270,6 +270,11 @@ if ( ! function_exists( 'lsg_diag_enqueue_assets' ) ) {
 
         wp_localize_script( 'lsg-diag-parfum', 'lsgDiagSettings', array(
             'restUrl' => esc_url_raw( rest_url( 'lsg-diag/v1/results' ) ),
+            // La requête REST part vers /wp-json/... sans le préfixe de langue
+            // de l'URL courante : sans cette info, WPML ne peut pas deviner la
+            // langue de la page et retombe sur sa langue par défaut (voir
+            // lsg_diag_rest_results()).
+            'lang'    => apply_filters( 'wpml_current_language', null ),
         ) );
     }
 }
@@ -723,6 +728,16 @@ if ( ! function_exists( 'lsg_diag_render_diagnostic_page' ) ) {
  */
 if ( ! function_exists( 'lsg_diag_rest_results' ) ) {
     function lsg_diag_rest_results( WP_REST_Request $request ) {
+        // Remet le contexte de langue WPML de la page d'origine avant toute
+        // requête : une requête REST arrive sur /wp-json/... sans le préfixe
+        // de langue de l'URL, WPML ne peut donc pas le déduire lui-même et
+        // reviendrait sinon à sa langue par défaut (termes ET lsg_t() dans la
+        // mauvaise langue).
+        $lang = $request->get_param( 'lang' );
+        if ( $lang && has_action( 'wpml_switch_language' ) ) {
+            do_action( 'wpml_switch_language', $lang );
+        }
+
         $has_parfum_param = null !== $request->get_param( 'diag_parfum' );
         $has_note_param   = null !== $request->get_param( 'diag_note' );
 
@@ -756,6 +771,9 @@ if ( ! function_exists( 'lsg_diag_register_rest_routes' ) ) {
                     'sanitize_callback' => 'sanitize_text_field',
                 ),
                 'diag_note'   => array(
+                    'sanitize_callback' => 'sanitize_text_field',
+                ),
+                'lang'        => array(
                     'sanitize_callback' => 'sanitize_text_field',
                 ),
             ),

@@ -168,6 +168,13 @@
 
 			var url = window.lsgDiagSettings.restUrl + '?' + params.toString();
 
+			// Nécessaire pour que WPML retrouve la langue de la page d'origine :
+			// une requête vers /wp-json/... n'a pas le préfixe de langue de
+			// l'URL affichée (voir lsg_diag_rest_results() côté PHP).
+			if ( window.lsgDiagSettings.lang ) {
+				url += '&lang=' + encodeURIComponent( window.lsgDiagSettings.lang );
+			}
+
 			fetch( url, { headers: { Accept: 'application/json' } } )
 				.then( function ( response ) {
 					if ( ! response.ok ) {
