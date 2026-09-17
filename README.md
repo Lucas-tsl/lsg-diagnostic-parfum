@@ -10,7 +10,9 @@ A WordPress/WooCommerce plugin that adds a perfume-finder (scent family + note) 
 - **Shortcode** `[lsg_diag_parfum]` for any standalone page — renders its own responsive 2-column layout:
   - Left column: title, subtitle, the two filters, a reset button, and a live result count.
   - Right column: a loading indicator and the matching WooCommerce products grid.
+- **No full page reload** on the shortcode page: filtering calls the plugin's REST API and swaps only the results grid, with the URL updated via `history.pushState`. Falls back to a normal navigation if the request fails, and to a plain `<form>` GET submit if JavaScript is disabled.
 - **Responsive breakpoints**: stacked on mobile, 2 columns from tablet (≥768px), wider gutters on laptop (≥1024px) and large screens (≥1440px).
+- **Customizable colors** (card background, text, fields background) from **Settings → Diagnostic Parfum** in wp-admin.
 - **WPML-ready**:
   - Dynamic `<title>` and canonical URL, with dedicated hooks for Yoast SEO and RankMath (both plugins bypass WordPress' native title filter, so a generic `document_title_parts` hook alone isn't enough).
   - Per-language default pre-selected perfume family.

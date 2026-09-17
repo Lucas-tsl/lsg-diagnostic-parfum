@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LSG Diagnostic Parfum 1.1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/Lucas-tsl/lsg-diagnostic-parfum/issues\n"
+"POT-Creation-Date: 2026-09-17T00:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: manual\n"
+"X-Domain: lsg_toolbox\n"
+
+#. Heading shown above the two filters.
+#: lsg-diagnostic-parfum.php
+msgid "Find your perfume desire"
+msgstr ""
+
+#. Label of the perfume-family select.
+#: lsg-diagnostic-parfum.php
+msgid "I want a trail of perfume"
+msgstr ""
+
+#. Label of the scent-note select.
+#: lsg-diagnostic-parfum.php
+msgid "with a concord of"
+msgstr ""
+
+#. Hint shown until the visitor has interacted with both selects.
+#: lsg-diagnostic-parfum.php
+msgid "Fill those fields to find your perfume!"
+msgstr ""
+
+#. Results counter, singular.
+#. translators: %d: number of matching perfumes
+#: lsg-diagnostic-parfum.php
+msgid "%d parfum trouvé"
+msgstr ""
+
+#. Results counter, plural.
+#. translators: %d: number of matching perfumes
+#: lsg-diagnostic-parfum.php
+msgid "%d parfums trouvés"
+msgstr ""
+
+# ---------------------------------------------------------------------------
+# The strings below go through the theme's lsg_t( $fr, $en ) helper instead
+# of the standard __()/_e() gettext functions, so a real `wp i18n make-pot`
+# scan will NOT pick them up automatically. They are listed here only for
+# reference/documentation; to translate them, edit the corresponding
+# lsg_t( 'French string', 'English string' ) calls directly in
+# lsg-diagnostic-parfum.php rather than through this .pot file.
+# ---------------------------------------------------------------------------
+# fr: "Réinitialiser"                                     -> en: "Reset"
+# fr: "Choisir une famille de parfum"                      -> en: "Choose a perfume family"
+# fr: "Choisir une note olfactive"                         -> en: "Choose a scent note"
+# fr: "Aucun parfum ne correspond encore à cette combinaison." -> en: "No perfume matches this combination yet."

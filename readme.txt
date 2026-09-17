@@ -7,7 +7,7 @@ Tested up to: 6.6
 Requires PHP: 7.4
 WC requires at least: 6.0
 WC tested up to: 9.0
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,10 +28,12 @@ It ships with three ways to use it:
 * Responsive 2-column layout (stacked on mobile, side-by-side from tablet upward, wider gutters on laptop/large screens).
 * A sensible default selection out of the box (configurable per language) so the page is never empty on first load.
 * A "Reset" button, shown only once a filter is active.
-* A loading indicator while the page reloads after a selection change.
+* A loading indicator while the results are filtered.
+* On the dedicated page, filtering happens via the REST API without a full page reload (with an automatic fallback to a normal page load, and to a plain `<form>` submit if JavaScript is disabled).
 * A live product counter ("X perfumes found") above the results.
 * Dynamic `<title>` and canonical URL, with dedicated hooks for Yoast SEO (`wpseo_title`) and RankMath (`rank_math/frontend/title`) since both plugins bypass WordPress' native title filter.
 * Language-aware default selection and a small compatibility helper for WPML's `get_terms()` language-filtering quirk (`suppress_filters` must be explicitly set to `false`, otherwise terms from every language are returned together).
+* Customizable colors (card background, text, fields background) under Settings → Diagnostic Parfum.
 
 = Requirements =
 
@@ -61,6 +63,17 @@ The plugin disables a note option when no product links that specific term (by i
 Yes. Edit `LSG_DIAG_DEFAULT_PARFUM` (the base/original-language slug) and, if the term's slug differs by language, the `lsg_diag_default_parfum_by_lang()` array, at the top of `lsg-diagnostic-parfum.php`.
 
 == Changelog ==
+
+= 1.2.0 =
+* The `[lsg_diag_parfum]` shortcode page now filters products via the REST API instead of reloading the whole page (falls back to a full navigation if the request fails).
+* After filtering, the page smoothly scrolls the results into view instead of leaving the visitor scrolled back to the top.
+* The two filters now sit in a real `<form>` with a submit button revealed via `<noscript>`, so filtering still works with JavaScript disabled.
+* Disabled note options now say "— unavailable for this family" instead of only being greyed out.
+* The "0 perfumes found" counter is hidden when there are no results, instead of duplicating the "no result" message.
+* The empty note option now reads "All notes" instead of "...".
+* Element IDs are now unique per widget instance, so the block/shortcode can safely appear more than once on the same page.
+* CSS and JS are now proper enqueued assets (cacheable, loaded only when the block or shortcode is actually used) instead of being duplicated inline on every render.
+* New Settings → Diagnostic Parfum admin page to customize the widget's card background, text and fields background colors (native WordPress color pickers).
 
 = 1.1.0 =
 * Two-column responsive layout for the `[lsg_diag_parfum]` shortcode (filters + count on the left, loading indicator + results on the right).

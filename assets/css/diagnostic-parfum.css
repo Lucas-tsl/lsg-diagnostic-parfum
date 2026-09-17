@@ -1,0 +1,267 @@
+/**
+ * LSG Diagnostic Parfum — styles partagés par le bloc Gutenberg (custom/diag)
+ * et le shortcode [lsg_diag_parfum]. Enqueue conditionnel depuis
+ * lsg_diag_enqueue_assets() dans lsg-diagnostic-parfum.php.
+ */
+
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+.lsg-diag-root {
+	--lsg-diag-bg: #F9F9F9;
+	--lsg-diag-text: #000000;
+	--lsg-diag-fields-bg: #FFFFFF;
+}
+
+/* ---------- Bloc catégorie (sélecteur seul) ---------- */
+.lsg-diag-wrapper {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 0 16px;
+}
+.lsg-diag-wrapper .lsg-diag-title {
+	margin-bottom: 28px;
+}
+
+/* ---------- Page dédiée : mise en page 2 colonnes, mobile-first ---------- */
+.lsg-diag-layout {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 32px;
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 16px;
+	align-items: start;
+}
+
+@media (min-width: 768px) {
+	.lsg-diag-layout {
+		grid-template-columns: 280px 1fr;
+		gap: 32px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.lsg-diag-layout {
+		grid-template-columns: 320px 1fr;
+		gap: 40px;
+	}
+}
+
+@media (min-width: 1440px) {
+	.lsg-diag-layout {
+		grid-template-columns: 360px 1fr;
+		gap: 56px;
+	}
+}
+
+/* ---------- Carte titre + filtres (commune aux deux variantes) ---------- */
+.lsg-diag-card {
+	background-color: var(--lsg-diag-bg);
+	color: var(--lsg-diag-text);
+	border-radius: 8px;
+	padding: 40px 32px;
+	text-align: center;
+}
+
+.lsg-diag-title {
+	margin-bottom: 12px;
+}
+
+.lsg-diag-subtitle {
+	font-size: 0.95em;
+	font-weight: 400;
+	opacity: 0.75;
+	margin: 0 0 28px;
+}
+
+.lsg-diag-form {
+	margin: 0;
+}
+
+.lsg-diag-fields {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 24px;
+	margin-bottom: 24px;
+}
+
+.lsg-diag-field-group {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	text-align: left;
+	width: 100%;
+	min-width: 220px;
+}
+
+.lsg-diag-label {
+	font-size: 0.75em;
+	letter-spacing: 0.05em;
+	opacity: 0.7;
+	margin-bottom: 8px;
+}
+
+select.diag-input {
+	width: 100%;
+	padding: 12px 40px 12px 14px;
+	border: none;
+	border-bottom: 1px solid var(--lsg-diag-text);
+	border-radius: 0;
+	background-color: var(--lsg-diag-fields-bg);
+	color: var(--lsg-diag-text);
+	font-size: 15px;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	cursor: pointer;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 14px center;
+	background-size: 12px 8px;
+	transition: border-color 0.2s ease;
+}
+select.diag-input:hover,
+select.diag-input:focus {
+	border-color: var(--lsg-diag-text);
+	outline: none;
+}
+select.diag-input:disabled {
+	opacity: 0.6;
+}
+select.diag-input::-ms-expand {
+	display: none;
+}
+
+.disabled-note {
+	color: #ccc;
+	opacity: 0.6;
+	font-size: 0.85em;
+}
+
+/* Bouton de secours, affiché uniquement quand JS est désactivé (voir <noscript> dans le formulaire). */
+.lsg-diag-submit {
+	display: none;
+	margin-top: 4px;
+	background: none;
+	border: 1px solid var(--lsg-diag-text);
+	color: var(--lsg-diag-text);
+	border-radius: 4px;
+	padding: 8px 22px;
+	cursor: pointer;
+	font-size: 0.8em;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
+.lsg-diag-reset {
+	display: inline-block;
+	margin-top: 4px;
+	background: none;
+	border: 1px solid var(--lsg-diag-text);
+	color: var(--lsg-diag-text);
+	border-radius: 4px;
+	padding: 8px 22px;
+	cursor: pointer;
+	font-size: 0.8em;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+.lsg-diag-reset:hover {
+	background-color: var(--lsg-diag-text);
+	color: var(--lsg-diag-bg);
+}
+/* Spécificité supérieure à .lsg-diag-reset pour garantir que [hidden] masque bien le bouton. */
+.lsg-diag-reset[hidden] {
+	display: none;
+}
+
+.lsg-diag-count {
+	font-size: 0.8em;
+	letter-spacing: 0.05em;
+	opacity: 0.7;
+	margin: 24px 0 0;
+	padding-top: 20px;
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.lsg-diag-count[hidden] {
+	display: none;
+}
+
+/* ---------- Chargement ---------- */
+.lsg-diag-loading {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	padding: 24px 0;
+}
+.lsg-diag-loading.is-active {
+	display: flex;
+}
+.lsg-diag-spinner {
+	width: 28px;
+	height: 28px;
+	border: 3px solid rgba(0, 0, 0, 0.15);
+	border-top-color: currentColor;
+	border-radius: 50%;
+	display: inline-block;
+	animation: lsg-diag-spin 0.8s linear infinite;
+}
+@keyframes lsg-diag-spin {
+	to { transform: rotate(360deg); }
+}
+
+/* ---------- Résultats (colonne droite de la page dédiée) ---------- */
+.lsg-diag-results {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 24px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.lsg-diag-result-item a {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+	text-align: center;
+}
+.lsg-diag-result-item img {
+	max-width: 100%;
+	height: auto;
+}
+.lsg-diag-result-item h3 {
+	font-size: 16px;
+	margin: 10px 0 4px;
+}
+.lsg-diag-no-result {
+	text-align: center;
+	padding: 40px 0;
+	opacity: 0.7;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+	.lsg-diag-card {
+		padding: 28px 20px;
+	}
+	.lsg-diag-fields {
+		flex-direction: column;
+		align-items: stretch;
+	}
+	.lsg-diag-field-group {
+		width: 100%;
+	}
+}
