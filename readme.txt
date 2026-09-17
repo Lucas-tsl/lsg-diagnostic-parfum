@@ -7,7 +7,7 @@ Tested up to: 6.6
 Requires PHP: 7.4
 WC requires at least: 6.0
 WC tested up to: 9.0
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,9 @@ The plugin disables a note option when no product links that specific term (by i
 Yes. Edit `LSG_DIAG_DEFAULT_PARFUM` (the base/original-language slug) and, if the term's slug differs by language, the `lsg_diag_default_parfum_by_lang()` array, at the top of `lsg-diagnostic-parfum.php`.
 
 == Changelog ==
+
+= 1.2.2 =
+* The results counter ("X perfumes found") now always translates correctly, using the same lightweight `lsg_t()` bilingual helper as the rest of the plugin instead of WordPress' `_n()`, which only translates when a matching `.mo` file or WPML String Translation entry already exists for that exact string.
 
 = 1.2.1 =
 * Fixed the note filter (and its "unavailable for this family" text) showing up in the wrong language after an AJAX filter update on multilingual (WPML) sites. The REST request now explicitly passes the page's current language, since a `/wp-json/...` request has no language prefix in its URL for WPML to detect on its own.

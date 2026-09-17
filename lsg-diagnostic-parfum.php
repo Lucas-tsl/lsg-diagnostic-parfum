@@ -3,7 +3,7 @@
  * Plugin Name:       LSG Diagnostic Parfum
  * Plugin URI:        https://github.com/Lucas-tsl/lsg-diagnostic-parfum
  * Description:       Sélecteur de diagnostic parfum (famille olfactive + note) avec filtrage de produits WooCommerce, bloc Gutenberg pour page de catégorie, page dédiée responsive en 2 colonnes filtrée sans rechargement, couleurs personnalisables, et compatibilité multilingue WPML.
- * Version:           1.2.1
+ * Version:           1.2.2
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * WC requires at least: 6.0
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'LSG_DIAG_VERSION' ) ) {
-    define( 'LSG_DIAG_VERSION', '1.2.1' );
+    define( 'LSG_DIAG_VERSION', '1.2.2' );
 }
 
 /**
@@ -488,17 +488,22 @@ if ( ! function_exists( 'lsg_diag_render_reset_button' ) ) {
 /**
  * Libellé du compteur de résultats ("3 parfums trouvés"), vide si count = 0
  * (le message "Aucun résultat" de la grille suffit, pas besoin des deux).
+ *
+ * Utilise lsg_t() plutôt que _n()/gettext : ce dernier ne traduit que si une
+ * chaîne .mo (ou une entrée WPML String Translation) existe déjà pour ce
+ * texte précis, ce qui n'est pas garanti. lsg_t() bascule immédiatement
+ * selon la langue courante, sans dépendre d'un fichier de traduction.
  */
 if ( ! function_exists( 'lsg_diag_count_label' ) ) {
     function lsg_diag_count_label( $count ) {
         if ( ! $count ) {
             return '';
         }
-        return sprintf(
-            /* translators: %d: nombre de parfums correspondant à la sélection */
-            _n( '%d parfum trouvé', '%d parfums trouvés', $count, 'lsg_toolbox' ),
-            $count
-        );
+
+        $label_fr = 1 === $count ? '%d parfum trouvé' : '%d parfums trouvés';
+        $label_en = 1 === $count ? '%d perfume found' : '%d perfumes found';
+
+        return sprintf( lsg_t( $label_fr, $label_en ), $count );
     }
 }
 
